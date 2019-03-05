@@ -8,10 +8,10 @@
 
 ; definim fapte despre studenti
 (deffacts existing_add_student_grades
-    (student (name "Ioana Birsan") (project_grade 10) (exam_grade 9) (laboratory_grades " 1 9" "2 6" "3 5" "4 10"))
-    (student (name "Daniel Amariei") (project_grade 10) (exam_grade 10) (laboratory_grades " 1 10" "2 10" "3 10"))
-    (student (name "Maria Popescu") (project_grade 4) (exam_grade 8) (laboratory_grades " 1 6" "2 7"))
-    (student (name "Ion Radu") (project_grade 5) (exam_grade 4) (laboratory_grades " 1 9" "2 8" "3 10" "4 7" "5 8"))
+    (student (name "Ioana Birsan") (project_grade 10) (exam_grade 9) (laboratory_grades 1 3 2 6 3 5 4 10))
+    (student (name "Daniel Amariei") (project_grade 10) (exam_grade 10) (laboratory_grades 1 10 2 3 3 5))
+    (student (name "Maria Popescu") (project_grade 4) (exam_grade 8) (laboratory_grades 1 3 2 3))
+    (student (name "Ion Radu") (project_grade 5) (exam_grade 4) (laboratory_grades 1 10 2 9 3 9 4 8))
 )
 
 ; meniu principal
@@ -26,7 +26,7 @@
     (printout t "Add exam grade (4)" crlf)
     (printout t "Display student info (5)" crlf)
     (printout t "Display the number of promoted students (6)" crlf)
-    (printout t "Display the of promoted students (7)" crlf)
+    (printout t "Display the list of promoted students (7)" crlf)
     (printout t "Exit (8)" crlf)
     (printout t "--------------END MENU-------------" crlf)
     (printout t "" crlf)
@@ -43,7 +43,31 @@
 )
 
 ; add laboratory grades
+(defrule retrieve_lab_grade
+    ?option <- (option 2)
+    =>
+    (printout t "Lab grades: <student name> [<lab><grade>]+" crlf)
+    (assert (input_lab_grade (explode$(readline))))
+)
 
+(defrule verify_student_exists_lab_grade
+    ?option <- (option 2)
+    ?input_lab_grade <- (input_lab_grade ?name $?)
+    (not (exists (student (name ?name))))
+    =>
+    (retract ?option ?input_lab_grade)
+    (assert (option 2))
+    (printout t "The specified student does not exist" crlf)
+)
+
+(defrule add_laboratory_grades
+    ?option <- (option 2)
+    ?input_lab_grade <- (input_lab_grade ?name $?laboratory_grades)
+    ?student <- (student (name ?name) (project_grade ?project_grade) (exam_grade ?exam_grade) (laboratory_grades $?))
+    =>
+    (retract ?option ?input_lab_grade ?student)
+    (assert (student (name ?name) (project_grade ?project_grade) (exam_grade ?exam_grade) (laboratory_grades $?laboratory_grades)))
+)
 
 ; add project grade
 (defrule retrieve_project_grade
@@ -145,6 +169,18 @@
 
 ; display the list of promoted students
 (defrule display_list_promoted_students
+    ?option <- (option 7)
+    (student (name ?name) (project_grade ?project_grade) (exam_grade ?exam_grade) (laboratory_grades $?laboratory_grades))
+    (test (> ?exam_grade 4))
+    (test (> ?project_grade 4))
+    (forall (laboratory_grades $? ? ?grade $?)
+    (> ?grade 4)
+    )
+    =>
+    (printout t "Name: " ?name crlf)
+)
+
+(defrule finish_displaying_list_promoted_students
     ?option <- (option 7)
     =>
     (retract ?option)
