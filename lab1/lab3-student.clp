@@ -14,10 +14,6 @@
     (student (name "Ion Radu") (project_grade 5) (exam_grade 4) (laboratory_grades 1 10 2 9 3 9 4 8))
 )
 
-(defglobal
-?*number_promoted_students* = 0
-)
-
 ; meniu principal
 (defrule show_menu
     (not (option ?x))
@@ -37,33 +33,16 @@
     (assert (option (read)))
 )
 
-; ################### add student ########################
-(defrule retrieve_name
-    ?option <- (option 1)
-    =>
-    (printout t "Name:" crlf)
-    (assert (input_name (explode$(readline))))
-)
-
-(defrule verify_student_exists
-    ?option <- (option 1)
-    ?input_name <- (input_name ?name $?)
-    (student (name ?name))
-    =>
-    (retract ?option ?input_name)
-    (assert (option 1))
-    (printout t "The specified student already exists" crlf)
-)
-
 (defrule add_student
     ?option <- (option 1)
-    ?input_name <- (input_name ?name $?)
     =>
-    (retract ?option ?input_name)
+    (retract ?option)
+    (printout t "Name: " crlf)
+    (bind ?name (readline))
     (assert (student (name ?name)))
 )
 
-; ################### add laboratory grades ########################
+; add laboratory grades
 (defrule retrieve_lab_grade
     ?option <- (option 2)
     =>
@@ -71,7 +50,7 @@
     (assert (input_lab_grade (explode$(readline))))
 )
 
-(defrule verify_student_exists_lab_grade
+(defrule verify_student_exists_lab_grades
     ?option <- (option 2)
     ?input_lab_grade <- (input_lab_grade ?name $?)
     (not (student (name ?name)))
@@ -84,9 +63,10 @@
 (defrule verify_lab_grade_exists
     ?option <- (option 2)
     ?input_lab_grade <- (input_lab_grade ?name ?laboratory_grades $?)
-    (student (name ?name)(laboratory_grades ?))
+    (student (name ?name)(laboratory_grades $?grades))
     =>
     (retract ?option ?input_lab_grade)
+    (assert (option 2))
     (printout t "The student already has laboratory grades" crlf)
 )
 
@@ -120,7 +100,7 @@
 (defrule verify_project_grade_exists
     ?option <- (option 3)
     ?input_project_grade <- (input_project_grade ?name ?project_grade $?)
-    (student (name ?name)(project_grade ~nil))
+    (student (name ?name)(project_grade ?))
     =>
     (retract ?option ?input_project_grade)
     (printout t "The student already has project grade" crlf)
@@ -128,7 +108,7 @@
 
 (defrule add_project_grade
     ?option <- (option 3)
-    ?input_project_grade <- (input_project_grade ?name ?project_grade $?)
+    ?input_project_grade <- (input_project_grade ?name ?project_grade)
     ?student <- (student (name ?name) (project_grade ?) (exam_grade ?exam_grade) (laboratory_grades $?laboratory_grades))
     =>
     (retract ?option ?input_project_grade ?student)
@@ -146,7 +126,7 @@
 (defrule verify_student_exists_exam_grade
     ?option <- (option 4)
     ?input_exam_grade <- (input_exam_grade ?name $?)
-    (not (student (name ?name)))
+    (not (exists (student (name ?name))))
     =>
     (retract ?option ?input_exam_grade)
     (assert (option 4))
@@ -156,7 +136,7 @@
 (defrule verify_exam_grade_exists
     ?option <- (option 4)
     ?input_exam_grade <- (input_exam_grade ?name ?exam_grade $?)
-    (student (name ?name)(exam_grade ~nil))
+    (exists (student (name ?name)(exam_grade ?)))
     =>
     (retract ?option ?input_exam_grade)
     (printout t "The student already has exam grade" crlf)
@@ -164,7 +144,7 @@
 
 (defrule add_exam_grade
     ?option <- (option 4)
-    ?input_exam_grade <- (input_exam_grade ?name ?exam_grade $?)
+    ?input_exam_grade <- (input_exam_grade ?name ?exam_grade)
     ?student <- (student (name ?name) (project_grade ?project_grade) (exam_grade ?) (laboratory_grades $?laboratory_grades))
     =>
     (retract ?option ?input_exam_grade ?student)
@@ -221,7 +201,9 @@
     (student (name ?name) (project_grade ?project_grade) (exam_grade ?exam_grade) (laboratory_grades $?laboratory_grades))
     (test (> ?exam_grade 4))
     (test (> ?project_grade 4))
-    (forall (student (laboratory_grades $? ? ?grade $?))(> ?grade 4))
+    (forall (laboratory_grades $? ? ?grade $?)
+    (> ?grade 4)
+    )
     =>
     (printout t "Name: " ?name crlf)
 )
@@ -232,7 +214,7 @@
     (retract ?option)
 )
 
-; ################ exit ###################
+; exit
 (defrule exit
     ?option <- (option 8)
     =>
