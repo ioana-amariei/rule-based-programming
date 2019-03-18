@@ -16,6 +16,7 @@
 
 (defglobal
 ?*promoted_students* = 0
+?*found_students* = 0
 )
 
 ; meniu principal
@@ -278,13 +279,23 @@
     (printout t "There is no student that has exam grade: " ?exam_grade " and project grade: " ?project_grade crlf)
 )
 
+(defrule search_more_than_one_student
+    ?option <- (option 8)
+    (logical (test (> ?*found_students* 1)))
+    =>
+    (retract ?option)
+    (printout t "There are " ?*found_students* " students that satisfy the conditions." crlf)
+)
+
 (defrule search_display_found_student
     ?option <- (option 8)
     ?input_search_exam_grade <- (input_search_exam_grade $? ?exam_grade $?)
     ?input_search_project_grade <- (input_search_project_grade $? ?project_grade $?)
+    ; (forall (student (exam_grade ?exam_grade) (project_grade ?project_grade)))
     (student (name ?name)(project_grade ?project_grade) (exam_grade ?exam_grade))
     =>
     (retract ?option ?input_search_exam_grade ?input_search_project_grade)
+    (bind ?*found_students* (+ ?*found_students* 1))
     (printout t "Student: " ?name " has exam grade: " ?exam_grade " and project grade: " ?project_grade crlf)
 )
 
