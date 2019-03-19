@@ -10,6 +10,7 @@
 (deffacts existing_add_student_grades
     (student (name "Ioana Birsan") (project_grade 10) (exam_grade 9) (laboratory_grades 1 3 2 6 3 5 4 10))
     (student (name "Daniel Amariei") (project_grade 10) (exam_grade 10) (laboratory_grades 1 10 2 3 3 5))
+    (student (name "Ana Popa") (project_grade 10) (exam_grade 10) (laboratory_grades))
     (student (name "Maria Popescu") (project_grade 4) (exam_grade 8) (laboratory_grades 1 3 2 3))
     (student (name "Ion Radu") (project_grade 5) (exam_grade 4) (laboratory_grades 1 10 2 9 3 9 4 8))
 )
@@ -241,15 +242,15 @@
     ?option <- (option 8)
     =>
     (printout t "Exam grade:" crlf)
-    (assert (input_search_exam_grade (explode$(readline))))
+    (assert (search_input_exam_grade (explode$(readline))))
 )
 
 (defrule search_exam_grade_exists
-    ?option <- (option 8)
-    ?input_search_exam_grade <- (input_search_exam_grade ?exam_grade $?)
-    (not (student (exam_grade ?exam_grade)))
+     ?option <- (option 8)
+     ?search_input_exam_grade <- (search_input_exam_grade ?exam_grade $?)
+     (not (student (exam_grade ?exam_grade)))
     =>
-    (retract ?option ?input_search_exam_grade)
+    (retract ?option ?search_input_exam_grade)
     (printout t "There is no student with exam grade: " ?exam_grade crlf)
 )
 
@@ -257,47 +258,50 @@
     ?option <- (option 8)
     =>
     (printout t "Project grade:" crlf)
-    (assert (input_search_project_grade (explode$(readline))))
+    (assert (search_input_project_grade (explode$(readline))))
 )
 
 (defrule search_project_grade_exists
     ?option <- (option 8)
-    ?input_search_project_grade <- (input_search_project_grade ?project_grade $?)
-    (not (student (project_grade ?project_grade)))
+     ?search_input_project_grade <- (search_input_project_grade ?project_grade $?)
+     (not (student (project_grade ?project_grade)))
     =>
-    (retract ?option ?input_search_project_grade)
+    (retract ?option ?search_input_project_grade)
     (printout t "There is no student with project grade: " ?project_grade crlf)
 )
 
-(defrule search_student_not_found
+(defrule search_exam_and_project_grades_exist
     ?option <- (option 8)
-    ?input_search_exam_grade <- (input_search_exam_grade $? ?exam_grade $?)
-    ?input_search_project_grade <- (input_search_project_grade $? ?project_grade $?)
+    ?search_input_exam_grade <- (search_input_exam_grade ?exam_grade $?)
+    ?search_input_project_grade <- (search_input_project_grade ?project_grade $?)
     (not (student (exam_grade ?exam_grade)(project_grade ?project_grade)))
     =>
-    (retract ?option ?input_search_exam_grade ?input_search_project_grade)
-    (printout t "There is no student that has exam grade: " ?exam_grade " and project grade: " ?project_grade crlf)
+    (retract ?option ?search_input_exam_grade ?search_input_project_grade)
+    (printout t "There is no student with exam grade: " ?exam_grade " and project grade: " ?project_grade crlf)
 )
 
-(defrule search_more_than_one_student
+(defrule search_number_students_satisfy_exam_project_grades
     ?option <- (option 8)
-    (logical (test (> ?*found_students* 1)))
+    ?search_input_exam_grade <- (search_input_exam_grade ?exam_grade $?)
+    ?search_input_project_grade <- (search_input_project_grade ?project_grade $?)
+    (forall (student (exam_grade ?ex_grade) (project_grade ?pr_grade))(eq ?exam_grade ?ex_grade) (eq ?project_grade ?pr_grade))
     =>
-    (retract ?option)
-    (printout t "There are " ?*found_students* " students that satisfy the conditions." crlf)
-)
-
-(defrule search_display_found_student
-    ?option <- (option 8)
-    ?input_search_exam_grade <- (input_search_exam_grade $? ?exam_grade $?)
-    ?input_search_project_grade <- (input_search_project_grade $? ?project_grade $?)
-    ; (forall (student (exam_grade ?exam_grade) (project_grade ?project_grade)))
-    (student (name ?name)(project_grade ?project_grade) (exam_grade ?exam_grade))
-    =>
-    (retract ?option ?input_search_exam_grade ?input_search_project_grade)
+    (retract ?option ?search_input_exam_grade ?search_input_project_grade)
     (bind ?*found_students* (+ ?*found_students* 1))
+    (printout t "There are: " ?*found_students* " students that satisfy condition." crlf)
+)
+
+(defrule search_display_students_satisfy_exam_project_grades
+    ?option <- (option 8)
+    (test (eq ?*found_students* 1))
+    ?search_input_exam_grade <- (search_input_exam_grade ?exam_grade $?)
+    ?search_input_project_grade <- (search_input_project_grade ?project_grade $?)
+    (student (name ?name)(exam_grade ?exam_grade)(project_grade ?project_grade))
+    =>
+    (retract ?option ?search_input_exam_grade ?search_input_project_grade)
     (printout t "Student: " ?name " has exam grade: " ?exam_grade " and project grade: " ?project_grade crlf)
 )
+
 
 ; ################ exit ###################
 (defrule exit
