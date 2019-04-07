@@ -1,0 +1,13 @@
+; lista de note a unui student nu este statica
+;(student ?x ? 10)
+; logical (not (student ?x ? ?y&:(< ?y 10))) ; in baza de date conditiile memorate cu logical se sterg faptele care au fost introduse anterior daca se schimba ceva
+; numarul de operatii facute este sensibil mai mare
+;=>
+;(assert (premiant ?x))
+
+
+; definirea regulilor cu prioritate
+;(declare (saliencec 20))
+; motorul de cautare calculeaza agenda in functie de nivelurile de prioritate
+; se face un calcul complet al agendei pentru fiecare nivel de prioritate
+; putem controla foarte clar ordinea de aplicare a regulilor

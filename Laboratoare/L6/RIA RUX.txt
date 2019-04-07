@@ -1,0 +1,16 @@
+The development of Web applications has changed with the popu-
+larity of RIA (AJAX, Flash, FLEX).
+Howerver from the UI accesibility point of view this techologies are rather challeing.
+The design of UI in Web could be approached by a model-based method.
+In the last years the complexity of Web applications has increased segnificantly.;
+But this RIA is somewhat not permitede in all situatuins (e.g blind people).
+
+SAW  offers accesibility to the Web for people with special needs by the use of ontologies.
+HTML element are annotated with special semantic elements, witch can be used to contruct an ontology.
+
+RUX
+In RUX the takdowns is rather different.
+We need to provide an abstract UI that provides the features that are common to al the RIA devices and platform.
+With this abstraction in back we provide a view for each type of person/device we want.
+
+Another step is combining the two models.
