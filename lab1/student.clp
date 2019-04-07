@@ -8,16 +8,20 @@
 
 ; definim fapte despre studenti
 (deffacts existing_add_student_grades
-    (student (name "Ioana Birsan") (project_grade 10) (exam_grade 9) (laboratory_grades 1 3 2 6 3 5 4 10))
-    (student (name "Daniel Amariei") (project_grade 10) (exam_grade 10) (laboratory_grades 1 10 2 3 3 5))
-    (student (name "Ana Popa") (project_grade 10) (exam_grade 10) (laboratory_grades))
-    (student (name "Maria Popescu") (project_grade 4) (exam_grade 8) (laboratory_grades 1 3 2 3))
-    (student (name "Ion Radu") (project_grade 5) (exam_grade 4) (laboratory_grades 1 10 2 9 3 9 4 8))
+    (student (name "Ioana Birsan") (project_grade 25) (exam_grade 10) (laboratory_grades 4 5 2 3 4))
+    (student (name "Ioana Popescu") (project_grade 25) (exam_grade 10) (laboratory_grades 4 5 2 3 4))
+    (student (name "Daniel Amariei") (project_grade 15) (exam_grade 20) (laboratory_grades 3 3 3 4 5 2))
+    (student (name "Ana Popa") (project_grade 33) (exam_grade 10) (laboratory_grades))
+    (student (name "Maria Popescu") (project_grade 5) (exam_grade 12) (laboratory_grades 3 3 4))
+    (student (name "Ion Radu") (project_grade 22) (exam_grade 30) (laboratory_grades 4 2 2 4 5 5))
+    (student (name "Andrei Radu") (project_grade 25) (exam_grade 33) (laboratory_grades 4 2 2 4 5 5))
 )
 
 (defglobal
 ?*promoted_students* = 0
 ?*found_students* = 0
+?*total_grade* = 0
+?*partial_grade* = 0
 )
 
 ; meniu principal
@@ -212,23 +216,43 @@
 )
 
 ; ################### display the number of promoted students ###################
-(defrule display_number_promoted_students
+(defrule check_number_promoted_students
     ?option <- (option 6)
+    (not (promoted ?number))
     =>
     (retract ?option)
-    (printout t "Promoted students: " ?*promoted_students* crlf)
+)
+
+(defrule display_number_promoted_students
+    ?option <- (option 6)
+    (promoted ?number)
+    =>
+    (retract ?option)
+    (printout t "Promoted students: " ?number crlf)
 )
 
 ; ################ display the list of promoted students ###################
+(defrule compute_grade
+    ?option <- (option 7)
+    (student (name ?name) (project_grade ?project_grade) (exam_grade ?exam_grade) (laboratory_grades $?laboratory_grades))
+    ; (forall (student (laboratory_grades $? ?grade $?))(> ?grade 0))
+    =>
+    (bind ?*total_grade* (+ ?exam_grade ?project_grade))
+    (assert (student_name ?name ?*total_grade*))
+    ; (bind ?*partial_grade* (+ ?grade ?*partial_grade*))
+    ; (bind ?*total_grade* (+ ?exam_grade ?project_grade ?*partial_grade*))
+    
+)
+
 (defrule display_list_promoted_students
     ?option <- (option 7)
-    (student (name ?name) (project_grade ?project_grade) (exam_grade ?exam_grade) (laboratory_grades ?laboratory_grades))
-    (test (> ?exam_grade 4))
-    (test (> ?project_grade 4))
-    (forall (student (laboratory_grades $? ? ?grade $?))(> ?grade 4))
+    (student (name ?name) (project_grade ?project_grade) (exam_grade ?exam_grade) (laboratory_grades $?laboratory_grades))
+    (student_name ?name ?total)
+    (test (> ?total 49))
     =>
-    (printout t "Name: " ?name crlf)
     (bind ?*promoted_students* (+ ?*promoted_students* 1))
+    (assert (promoted ?*promoted_students*))
+    (printout t "Name: " ?name " final grade: " ?*total_grade* crlf)
 )
 
 (defrule finish_displaying_list_promoted_students
@@ -246,9 +270,9 @@
 )
 
 (defrule search_exam_grade_exists
-     ?option <- (option 8)
-     ?search_input_exam_grade <- (search_input_exam_grade ?exam_grade $?)
-     (not (student (exam_grade ?exam_grade)))
+    ?option <- (option 8)
+    ?search_input_exam_grade <- (search_input_exam_grade ?exam_grade $?)
+    (not (student (exam_grade ?exam_grade)))
     =>
     (retract ?option ?search_input_exam_grade)
     (printout t "There is no student with exam grade: " ?exam_grade crlf)
@@ -263,8 +287,8 @@
 
 (defrule search_project_grade_exists
     ?option <- (option 8)
-     ?search_input_project_grade <- (search_input_project_grade ?project_grade $?)
-     (not (student (project_grade ?project_grade)))
+    ?search_input_project_grade <- (search_input_project_grade ?project_grade $?)
+    (not (student (project_grade ?project_grade)))
     =>
     (retract ?option ?search_input_project_grade)
     (printout t "There is no student with project grade: " ?project_grade crlf)
@@ -280,20 +304,31 @@
     (printout t "There is no student with exam grade: " ?exam_grade " and project grade: " ?project_grade crlf)
 )
 
-(defrule search_number_students_satisfy_exam_project_grades
+(defrule search_increment_students_satisfy_exam_project_grades
     ?option <- (option 8)
     ?search_input_exam_grade <- (search_input_exam_grade ?exam_grade $?)
     ?search_input_project_grade <- (search_input_project_grade ?project_grade $?)
-    (forall (student (exam_grade ?ex_grade) (project_grade ?pr_grade))(eq ?exam_grade ?ex_grade) (eq ?project_grade ?pr_grade))
+    (student (name ?name)(exam_grade ?exam_grade)(project_grade ?project_grade))
     =>
-    (retract ?option ?search_input_exam_grade ?search_input_project_grade)
     (bind ?*found_students* (+ ?*found_students* 1))
-    (printout t "There are: " ?*found_students* " students that satisfy condition." crlf)
+    (assert (student_number ?name ?*found_students*))
+)
+
+(defrule search_display_number_students
+    ?option <- (option 8)
+    (student (name ?name) (project_grade ?project_grade) (exam_grade ?exam_grade) (laboratory_grades $?laboratory_grades))
+    (student_number ?name ?number)
+    (test (> ?number 1))
+    =>
+    (retract ?option)
+    (printout t "There are: " ?number " that satisfy condition." crlf)
 )
 
 (defrule search_display_students_satisfy_exam_project_grades
     ?option <- (option 8)
-    (test (eq ?*found_students* 1))
+    (student_number ?number)
+    (test (< ?number 2))
+    (test (> ?number 0))
     ?search_input_exam_grade <- (search_input_exam_grade ?exam_grade $?)
     ?search_input_project_grade <- (search_input_project_grade ?project_grade $?)
     (student (name ?name)(exam_grade ?exam_grade)(project_grade ?project_grade))
@@ -301,7 +336,6 @@
     (retract ?option ?search_input_exam_grade ?search_input_project_grade)
     (printout t "Student: " ?name " has exam grade: " ?exam_grade " and project grade: " ?project_grade crlf)
 )
-
 
 ; ################ exit ###################
 (defrule exit
