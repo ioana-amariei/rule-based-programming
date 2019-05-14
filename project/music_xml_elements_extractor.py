@@ -7,7 +7,7 @@ def xml_to_dictionary(path):
 
 
 def get_measures(root):
-    return root.findall('.//measure');
+    return root.findall('.//measure')
 
 
 def get_musical_notes(root):
@@ -15,8 +15,6 @@ def get_musical_notes(root):
 
     for note in root.iter('note'):
         notes.append(note)
-        pitch = note.find('pitch')
-        print(pitch.find('step').text)
 
     return notes
 
