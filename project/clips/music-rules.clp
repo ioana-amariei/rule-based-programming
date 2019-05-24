@@ -10,6 +10,7 @@
     (count_sol)
     (count_la)
     (count_si)
+    (rithm)
 )
 
 ; Define statistics rules
@@ -50,61 +51,11 @@
     (assert (total_measures $?measures ?measure))
 )
 
-; Notes A(do), B(re), C(mi), D(fa), E(sol), F(la), G(si)
+; Notes A(la), B(si), C(do), D(re), E(mi), F(fa), G(sol)
 ; function str-compare <string1> <string2> returns 0 if <string1> equals <string2> else returns 1 (https://www.csie.ntu.edu.tw/~sylee/courses/clips/bpg/node12.3.9.html)
-(defrule number_of_do_notes
-    ?note <- (note (id ?) (measure_id ?) (pitch ?step ?octave) (duration ?duration) (voice ?) (type ?) (stem ?))
-    (test (< (str-compare ?step "A") 1))
-    ?a <- (count_do $?notes)
-    (not (count_do $? ?step ?octave $?))
-    =>
-    (retract ?a)
-    (assert (count_do $?notes ?step ?octave))
-)
-
-(defrule number_of_re_notes
-    ?note <- (note (id ?) (measure_id ?) (pitch ?step ?octave) (duration ?duration) (voice ?) (type ?) (stem ?))
-    (test (< (str-compare ?step "B") 1))
-    ?a <- (count_re $?notes)
-    (not (count_re $? ?step ?octave $?))
-    =>
-    (retract ?a)
-    (assert (count_re $?notes ?step ?octave))
-)
-
-(defrule number_of_mi_notes
-    ?note <- (note (id ?) (measure_id ?) (pitch ?step ?octave) (duration ?duration) (voice ?) (type ?) (stem ?))
-    (test (< (str-compare ?step "C") 1))
-    ?a <- (count_mi $?notes)
-    (not (count_mi $? ?step ?octave $?))
-    =>
-    (retract ?a)
-    (assert (count_mi $?notes ?step ?octave))
-)
-
-(defrule number_of_fa_notes
-    ?note <- (note (id ?) (measure_id ?) (pitch ?step ?octave) (duration ?duration) (voice ?) (type ?) (stem ?))
-    (test (< (str-compare ?step "D") 1))
-    ?a <- (count_fa $?notes)
-    (not (count_fa $? ?step ?octave $?))
-    =>
-    (retract ?a)
-    (assert (count_fa $?notes ?step ?octave))
-)
-
-(defrule number_of_sol_notes
-    ?note <- (note (id ?) (measure_id ?) (pitch ?step ?octave) (duration ?duration) (voice ?) (type ?) (stem ?))
-    (test (< (str-compare ?step "E") 1))
-    ?a <- (count_sol $?notes)
-    (not (count_sol $? ?step ?octave $?))
-    =>
-    (retract ?a)
-    (assert (count_sol $?notes ?step ?octave))
-)
-
 (defrule number_of_la_notes
     ?note <- (note (id ?) (measure_id ?) (pitch ?step ?octave) (duration ?duration) (voice ?) (type ?) (stem ?))
-    (test (< (str-compare ?step "F") 1))
+    (test (< (str-compare ?step "A") 1))
     ?a <- (count_la $?notes)
     (not (count_la $? ?step ?octave $?))
     =>
@@ -114,13 +65,101 @@
 
 (defrule number_of_si_notes
     ?note <- (note (id ?) (measure_id ?) (pitch ?step ?octave) (duration ?duration) (voice ?) (type ?) (stem ?))
-    (test (< (str-compare ?step "G") 1))
+    (test (< (str-compare ?step "B") 1))
     ?a <- (count_si $?notes)
     (not (count_si $? ?step ?octave $?))
     =>
     (retract ?a)
     (assert (count_si $?notes ?step ?octave))
 )
+
+(defrule number_of_do_notes
+    ?note <- (note (id ?) (measure_id ?) (pitch ?step ?octave) (duration ?duration) (voice ?) (type ?) (stem ?))
+    (test (< (str-compare ?step "C") 1))
+    ?a <- (count_do $?notes)
+    (not (count_do $? ?step ?octave $?))
+    =>
+    (retract ?a)
+    (assert (count_do $?notes ?step ?octave))
+)
+
+(defrule number_of_re_notes
+    ?note <- (note (id ?) (measure_id ?) (pitch ?step ?octave) (duration ?duration) (voice ?) (type ?) (stem ?))
+    (test (< (str-compare ?step "D") 1))
+    ?a <- (count_re $?notes)
+    (not (count_re $? ?step ?octave $?))
+    =>
+    (retract ?a)
+    (assert (count_re $?notes ?step ?octave))
+)
+
+(defrule number_of_mi_notes
+    ?note <- (note (id ?) (measure_id ?) (pitch ?step ?octave) (duration ?duration) (voice ?) (type ?) (stem ?))
+    (test (< (str-compare ?step "E") 1))
+    ?a <- (count_mi $?notes)
+    (not (count_mi $? ?step ?octave $?))
+    =>
+    (retract ?a)
+    (assert (count_mi $?notes ?step ?octave))
+)
+
+(defrule number_of_fa_notes
+    ?note <- (note (id ?) (measure_id ?) (pitch ?step ?octave) (duration ?duration) (voice ?) (type ?) (stem ?))
+    (test (< (str-compare ?step "F") 1))
+    ?a <- (count_fa $?notes)
+    (not (count_fa $? ?step ?octave $?))
+    =>
+    (retract ?a)
+    (assert (count_fa $?notes ?step ?octave))
+)
+
+(defrule number_of_sol_notes
+    ?note <- (note (id ?) (measure_id ?) (pitch ?step ?octave) (duration ?duration) (voice ?) (type ?) (stem ?))
+    (test (< (str-compare ?step "G") 1))
+    ?a <- (count_sol $?notes)
+    (not (count_sol $? ?step ?octave $?))
+    =>
+    (retract ?a)
+    (assert (count_sol $?notes ?step ?octave))
+)
+
+; Rules for establishing rithm
+; If number of notes is twice the number of measures rithm is medium, if is four times than rithm is alert, else is slow
+(defrule average_number_of_notes_per_measure
+    (total_notes $?tn)
+    (total_measures $?tm)
+    (not (rithm ?))
+    =>
+    (assert (rithm (/ (length $?tn) (length $?tm))))
+)
+
+(defrule check_slow_rithm
+    (rithm ?rithm)
+    (and 
+        (test (< ?rithm 2)) 
+        (test (>= ?rithm 0))
+    )
+    =>
+    (printout t "Rithm is slow" crlf)
+)
+
+(defrule check_medium_rithm
+    (rithm ?rithm)
+    (and 
+        (test (< ?rithm 4)) 
+        (test (>= ?rithm 2))
+    )
+    =>
+    (printout t "Rithm is medium" crlf)
+)
+
+(defrule check_alert_rithm
+    (rithm ?rithm)
+    (test (>= ?rithm 4))
+    =>
+    (printout t "Rithm is alert" crlf)
+)
+
 
 ; Display statistics
 
