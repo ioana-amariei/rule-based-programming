@@ -23,15 +23,15 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
-          <entry key="clp" value="3" />
+          <entry key="clp" value="8" />
           <entry key="musicxml" value="7" />
-          <entry key="py" value="6" />
+          <entry key="py" value="7" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="PLAIN_TEXT" value="10" />
-          <entry key="Python" value="6" />
+          <entry key="PLAIN_TEXT" value="15" />
+          <entry key="Python" value="7" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
@@ -53,25 +53,26 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/music_xml_elements_extractor.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="343">
-              <caret line="101" column="38" lean-forward="true" selection-start-line="101" selection-start-column="38" selection-end-line="101" selection-end-column="38" />
+            <state relative-caret-position="167">
+              <caret line="118" column="44" lean-forward="true" selection-start-line="118" selection-start-column="44" selection-end-line="118" selection-end-column="44" />
               <folding>
-                <marker date="1558695230951" expanded="true" signature="1657:1662" ph="..." />
-                <marker date="1558695230951" expanded="true" signature="3003:3121" ph="..." />
-                <marker date="1558695230951" expanded="true" signature="3121:3169" ph="..." />
-                <marker date="1558695230951" expanded="true" signature="3121:3416" ph="..." />
+                <marker date="1558696222032" expanded="true" signature="1657:1662" ph="..." />
+                <marker date="1558696222032" expanded="true" signature="3003:3121" ph="..." />
+                <marker date="1558696222032" expanded="true" signature="3121:3169" ph="..." />
+                <marker date="1558696222032" expanded="true" signature="3121:3428" ph="..." />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/notes.clp">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="176">
-              <caret line="8" column="1" lean-forward="true" selection-start-line="8" selection-start-column="1" selection-end-line="8" selection-end-column="1" />
-            </state>
-          </provider>
+        <entry file="file://$PROJECT_DIR$/clips/music-facts.clp">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/clips/music-rules.clp">
+          <provider selected="true" editor-type-id="text-editor" />
         </entry>
       </file>
     </leaf>
@@ -100,6 +101,8 @@
       <list>
         <option value="$PROJECT_DIR$/violin-music/Game_Of_Thrones_-_Main_Theme_Violin.musicxml" />
         <option value="$PROJECT_DIR$/notes.clp" />
+        <option value="$PROJECT_DIR$/clips/music_facts.clp" />
+        <option value="$PROJECT_DIR$/clips/music-facts.clp" />
         <option value="$PROJECT_DIR$/music_xml_elements_extractor.py" />
       </list>
     </option>
@@ -132,7 +135,7 @@
             <path>
               <item name="project" type="b2602c69:ProjectViewProjectNode" />
               <item name="project" type="462c0819:PsiDirectoryNode" />
-              <item name="violin-music" type="462c0819:PsiDirectoryNode" />
+              <item name="clips" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -145,6 +148,7 @@
     <property name="last_opened_file_path" value="$PROJECT_DIR$/music_xml_elements_extractor.py" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -213,7 +217,7 @@
       <window_info anchor="bottom" id="Debug" order="8" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="9" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="10" weight="0.4" />
-      <window_info anchor="bottom" id="Terminal" order="11" weight="0.32573727" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="11" visible="true" weight="0.32573727" />
       <window_info anchor="bottom" id="TODO" order="12" />
       <window_info anchor="right" id="Database" order="0" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="1" type="SLIDING" weight="0.4" />
@@ -280,20 +284,26 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/notes.clp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="176">
-          <caret line="8" column="1" lean-forward="true" selection-start-line="8" selection-start-column="1" selection-end-line="8" selection-end-column="1" />
+        <state relative-caret-position="110">
+          <caret line="75" column="31" selection-start-line="75" selection-start-column="31" selection-end-line="75" selection-end-column="31" />
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/clips/music-rules.clp">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/clips/music-facts.clp">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
     <entry file="file://$PROJECT_DIR$/music_xml_elements_extractor.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="343">
-          <caret line="101" column="38" lean-forward="true" selection-start-line="101" selection-start-column="38" selection-end-line="101" selection-end-column="38" />
+        <state relative-caret-position="167">
+          <caret line="118" column="44" lean-forward="true" selection-start-line="118" selection-start-column="44" selection-end-line="118" selection-end-column="44" />
           <folding>
-            <marker date="1558695230951" expanded="true" signature="1657:1662" ph="..." />
-            <marker date="1558695230951" expanded="true" signature="3003:3121" ph="..." />
-            <marker date="1558695230951" expanded="true" signature="3121:3169" ph="..." />
-            <marker date="1558695230951" expanded="true" signature="3121:3416" ph="..." />
+            <marker date="1558696222032" expanded="true" signature="1657:1662" ph="..." />
+            <marker date="1558696222032" expanded="true" signature="3003:3121" ph="..." />
+            <marker date="1558696222032" expanded="true" signature="3121:3169" ph="..." />
+            <marker date="1558696222032" expanded="true" signature="3121:3428" ph="..." />
           </folding>
         </state>
       </provider>

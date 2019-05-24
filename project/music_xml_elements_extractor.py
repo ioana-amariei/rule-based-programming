@@ -129,7 +129,7 @@ def get_measure_notes_id_as_string(measure):
 # must provide file with extension .musicxml
 music_xml_file = "violin-music/Game_Of_Thrones_-_Main_Theme_Violin.musicxml"
 root = xml_to_dictionary(music_xml_file)
-clips_file = "notes.clp"
+clips_file = "clips/music-facts.clp"
 
 create_note_template(clips_file)
 create_measure_template(clips_file)
