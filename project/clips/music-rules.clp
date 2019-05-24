@@ -126,6 +126,7 @@
 ; Rules for establishing rithm
 ; If number of notes is twice the number of measures rithm is medium, if is four times than rithm is alert, else is slow
 (defrule average_number_of_notes_per_measure
+    (declare (salience -5))
     (total_notes $?tn)
     (total_measures $?tm)
     (not (rithm ?))
