@@ -50,11 +50,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/music_xml_elements_extractor.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="167">
-              <caret line="118" column="44" lean-forward="true" selection-start-line="118" selection-start-column="44" selection-end-line="118" selection-end-column="44" />
+            <state relative-caret-position="365">
+              <caret line="127" lean-forward="true" selection-start-line="127" selection-end-line="127" />
               <folding>
                 <marker date="1558696222032" expanded="true" signature="1657:1662" ph="..." />
                 <marker date="1558696222032" expanded="true" signature="3003:3121" ph="..." />
@@ -70,9 +70,13 @@
           <provider selected="true" editor-type-id="text-editor" />
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/clips/music-rules.clp">
-          <provider selected="true" editor-type-id="text-editor" />
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="674">
+              <caret line="65" column="1" selection-start-line="65" selection-start-column="1" selection-end-line="65" selection-end-column="1" />
+            </state>
+          </provider>
         </entry>
       </file>
     </leaf>
@@ -104,6 +108,7 @@
         <option value="$PROJECT_DIR$/clips/music_facts.clp" />
         <option value="$PROJECT_DIR$/clips/music-facts.clp" />
         <option value="$PROJECT_DIR$/music_xml_elements_extractor.py" />
+        <option value="$PROJECT_DIR$/clips/music-rules.clp" />
       </list>
     </option>
   </component>
@@ -217,7 +222,7 @@
       <window_info anchor="bottom" id="Debug" order="8" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="9" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="10" weight="0.4" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="11" visible="true" weight="0.32573727" />
+      <window_info anchor="bottom" id="Terminal" order="11" weight="0.32573727" />
       <window_info anchor="bottom" id="TODO" order="12" />
       <window_info anchor="right" id="Database" order="0" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="1" type="SLIDING" weight="0.4" />
@@ -289,22 +294,26 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/clips/music-rules.clp">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/clips/music-facts.clp">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/music_xml_elements_extractor.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="167">
-          <caret line="118" column="44" lean-forward="true" selection-start-line="118" selection-start-column="44" selection-end-line="118" selection-end-column="44" />
+        <state relative-caret-position="365">
+          <caret line="127" lean-forward="true" selection-start-line="127" selection-end-line="127" />
           <folding>
             <marker date="1558696222032" expanded="true" signature="1657:1662" ph="..." />
             <marker date="1558696222032" expanded="true" signature="3003:3121" ph="..." />
             <marker date="1558696222032" expanded="true" signature="3121:3169" ph="..." />
             <marker date="1558696222032" expanded="true" signature="3121:3428" ph="..." />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/clips/music-rules.clp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="674">
+          <caret line="65" column="1" selection-start-line="65" selection-start-column="1" selection-end-line="65" selection-end-column="1" />
         </state>
       </provider>
     </entry>
