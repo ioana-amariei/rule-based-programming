@@ -38,13 +38,13 @@
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="clp" value="2" />
-          <entry key="py" value="5696" />
+          <entry key="py" value="5797" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="PLAIN_TEXT" value="2" />
-          <entry key="Python" value="5696" />
+          <entry key="Python" value="5797" />
         </counts>
       </usages-collector>
     </session>
@@ -54,12 +54,13 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/music_xml_elements_extractor.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="409">
-              <caret line="129" column="66" selection-start-line="129" selection-start-column="66" selection-end-line="129" selection-end-column="66" />
+            <state relative-caret-position="299">
+              <caret line="134" lean-forward="true" selection-start-line="134" selection-end-line="134" />
               <folding>
-                <marker date="1558712431885" expanded="true" signature="1657:1662" ph="..." />
-                <marker date="1558712431885" expanded="true" signature="3003:3121" ph="..." />
-                <marker date="1558712431885" expanded="true" signature="3121:3169" ph="..." />
+                <element signature="e#0#34#0" expanded="true" />
+                <marker date="1558713475836" expanded="true" signature="1764:1769" ph="..." />
+                <marker date="1558713475836" expanded="true" signature="3110:3228" ph="..." />
+                <marker date="1558713475836" expanded="true" signature="3228:3229" ph="..." />
               </folding>
             </state>
           </provider>
@@ -222,7 +223,7 @@
       <window_info anchor="bottom" id="Debug" order="8" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="9" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="10" weight="0.4" />
-      <window_info anchor="bottom" id="Terminal" order="11" weight="0.32573727" />
+      <window_info anchor="bottom" id="Terminal" order="11" weight="0.5" />
       <window_info anchor="bottom" id="TODO" order="12" />
       <window_info anchor="right" id="Database" order="0" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="1" type="SLIDING" weight="0.4" />
@@ -300,12 +301,13 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/music_xml_elements_extractor.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="409">
-          <caret line="129" column="66" selection-start-line="129" selection-start-column="66" selection-end-line="129" selection-end-column="66" />
+        <state relative-caret-position="299">
+          <caret line="134" lean-forward="true" selection-start-line="134" selection-end-line="134" />
           <folding>
-            <marker date="1558712431885" expanded="true" signature="1657:1662" ph="..." />
-            <marker date="1558712431885" expanded="true" signature="3003:3121" ph="..." />
-            <marker date="1558712431885" expanded="true" signature="3121:3169" ph="..." />
+            <element signature="e#0#34#0" expanded="true" />
+            <marker date="1558713475836" expanded="true" signature="1764:1769" ph="..." />
+            <marker date="1558713475836" expanded="true" signature="3110:3228" ph="..." />
+            <marker date="1558713475836" expanded="true" signature="3228:3229" ph="..." />
           </folding>
         </state>
       </provider>

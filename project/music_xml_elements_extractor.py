@@ -1,4 +1,12 @@
 import xml.etree.ElementTree as ET
+import sys
+
+
+if len(sys.argv) < 2 or len(sys.argv) > 2:
+    raise TypeError
+
+
+music_xml_file = sys.argv[1]
 
 
 def xml_to_dictionary(path):
@@ -126,10 +134,14 @@ def get_measure_notes_id_as_string(measure):
     return notes_id
 
 
-# must provide file with extension .musicxml
-music_xml_file = "violin-music/REQUIEM_FOR_A_DREAM_violin.musicxml"
+def erase_file_previous_content(file):
+    open(file, 'w').close()
+
+
 root = xml_to_dictionary(music_xml_file)
 clips_file = "clips/music-facts.clp"
+
+erase_file_previous_content(clips_file)
 
 create_note_template(clips_file)
 create_measure_template(clips_file)
