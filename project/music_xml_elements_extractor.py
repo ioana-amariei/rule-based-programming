@@ -6,25 +6,12 @@ def xml_to_dictionary(path):
     return tree.getroot()
 
 
-def get_measures(root):
-    return root.findall('.//measure')
-
-
-def get_musical_notes(root):
-    notes = []
-
-    for note in root.iter('note'):
-        notes.append(note)
-
-    return notes
-
-
 def create_measure_template(path):
     f = open(path, "a+")
 
     f.write("(deftemplate measure\n")
-    f.write("\t(slot number)\n")
-    f.write("\t(slot width)\n")
+    f.write("\t(slot id)\n")
+    f.write("\t(multislot notes_id)\n")
     f.write(")\n\n")
 
     f.close()
@@ -34,7 +21,8 @@ def create_note_template(path):
     f = open(path, "a+")
 
     f.write("(deftemplate note\n")
-    f.write("\t(multislot position)\n")
+    f.write("\t(slot id)\n")
+    f.write("\t(slot measure_id)\n")
     f.write("\t(multislot pitch)\n")
     f.write("\t(slot duration)\n")
     f.write("\t(slot voice)\n")
@@ -45,41 +33,104 @@ def create_note_template(path):
     f.close()
 
 
-def create_notes_knowledge_base(path, notes, measures):
-    f = open(path, "a+")
+def get_note_duration(note):
+    duration = note.find('duration')
+    if duration is None:
+        return "none"
+    return duration.text
 
-    f.write("(deffacts notes\n")
-    for note in notes:
-        f.write("\t(note "
-                + "(position " + note.attrib.get('default-x') + " " + note.attrib.get('default-x') + ") "
-                + "(pitch " + note.find('pitch').find('step').text + " " + note.find('pitch').find('octave').text + ") "
-                + "(duration " + note.find('duration').text + ") "
-                + "(voice " + note.find('voice').text + ") "
-                + "(type " + note.find('type').text + ") "
-                + "(stem " + note.find('stem').text + ") "
-                + ")\n")
-    f.write(")\n\n")
 
+def get_note_voice(note):
+    voice = note.find('voice')
+    if voice is None:
+        return "none"
+    return voice.text
+
+
+def get_note_type(note):
+    note_type = note.find('type')
+    if note_type is None:
+        return "none"
+    return note_type.text
+
+
+def get_note_stem(note):
+    stem = note.find('stem')
+    if stem is None:
+        return "none"
+    return stem.text
+
+
+def get_note_pitch(note):
+    pitch = note.find('pitch')
+    if pitch is None:
+        return "none", "none"
+
+    step = pitch.find('step')
+    octave = pitch.find('octave')
+    if step is None:
+        if octave is None:
+            return "none", "none"
+        return "none", octave.text
+    else:
+        if octave is None:
+            return step.text, "none"
+        return step.text, octave.text
+
+
+def create_knowledge_base(clips_file_path):
+    f = open(clips_file_path, "a+")
+
+    # first we define measures
     f.write("(deffacts measures\n")
-    for measure in measures:
-        f.write("\t(measure "
-                + "(number " + measure.attrib.get('number') + ") "
-                + "(width " + measure.attrib.get('width') + ") "
+    for measure in root.findall('.//measure'):
+        id = measure.attrib.get('number')
+        f.write("\t(measure " + "(id " + id + ") "
+                + "(notes_id " + get_measure_notes_id_as_string(measure) + ") "
                 + ")\n")
     f.write(")\n\n")
 
-    f.close()
+    # then we define notes
+    f.write("(deffacts notes\n")
+    for measure in root.findall('.//measure'):
+        measure_id = measure.attrib.get('number')
+        count = 1
+        for note in measure.findall('note'):
+
+            duration = get_note_duration(note)
+            voice = get_note_voice(note)
+            type = get_note_type(note)
+            stem = get_note_stem(note)
+            pitch = get_note_pitch(note)
+
+            f.write("\t(note "
+                    + "(id " + str(count) + ") "
+                    + "(measure_id " + measure_id + ") "
+                    + "(pitch " + pitch[0] + " " + pitch[1] + ") "
+                    + "(duration " + duration + ") "
+                    + "(voice " + voice + ") "
+                    + "(type " + type + ") "
+                    + "(stem " + stem + ") "
+                    + ")\n")
+            count += 1
+    f.write(")\n\n")
 
 
+def get_measure_notes_id_as_string(measure):
+    count = 1
+    notes_id = ""
+    for note in measure.findall('note'):
+        notes_id += str(count) + " "
+        count += 1
+
+    return notes_id
+
+
+# must provide file with extension .musicxml
 music_xml_file = "violin-music/Game_Of_Thrones_-_Main_Theme_Violin.musicxml"
 root = xml_to_dictionary(music_xml_file)
-
-notes = get_musical_notes(root)
-measures = get_measures(root)
-
 clips_file = "notes.clp"
+
 create_note_template(clips_file)
 create_measure_template(clips_file)
-create_notes_knowledge_base(clips_file, notes, measures)
-
-
+create_knowledge_base(clips_file)
