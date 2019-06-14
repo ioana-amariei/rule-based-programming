@@ -3,7 +3,7 @@ info:
   version: 0.0.0
   title: Taxi Service
   description: This is a sample server for a taxi service.
-  termsOfService: http://example.com/terms/
+  termsOfService: 'http://example.com/terms/'
 tags:
   - name: order
     description: Operations about orders
@@ -44,8 +44,9 @@ paths:
               operationId: getOrder
               parameters:
                 orderId: '$response.body#/id'
-              description: |
-                The `id` value returned in the response can be used as the `orderId` parameter in `GET /orders/{orderId}`.
+              description: >
+                The `id` value returned in the response can be used as the
+                `orderId` parameter in `GET /orders/{orderId}`.
     put:
       tags:
         - order
@@ -141,8 +142,9 @@ paths:
               operationId: getCar
               parameters:
                 carId: '$response.body#/id'
-              description: |
-                The `id` value returned in the response can be used as the `carId` parameter in `GET /cars/{carId}`.
+              description: >
+                The `id` value returned in the response can be used as the
+                `carId` parameter in `GET /cars/{carId}`.
     put:
       tags:
         - car
@@ -238,8 +240,9 @@ paths:
               operationId: getTaxiService
               parameters:
                 carId: '$response.body#/id'
-              description: |
-                The `id` value returned in the response can be used as the `taxiServiceId` parameter in `GET /taxis/{taxiServiceId}`.
+              description: >
+                The `id` value returned in the response can be used as the
+                `taxiServiceId` parameter in `GET /taxis/{taxiServiceId}`.
     put:
       tags:
         - taxi service
@@ -335,8 +338,9 @@ paths:
               operationId: getCustomer
               parameters:
                 customerId: '$response.body#/id'
-              description: |
-                The `id` value returned in the response can be used as the `customerId` parameter in `GET /customers/{customerId}`.
+              description: >
+                The `id` value returned in the response can be used as the
+                `customerId` parameter in `GET /customers/{customerId}`.
     put:
       tags:
         - customer
@@ -410,107 +414,108 @@ components:
       properties:
         id:
           type: integer
-          x-same-as: http://schema.org/identifier
+          x-same-as: 'http://schema.org/identifier'
           format: int64
         carId:
           type: integer
-          x-same-as: http://schema.org/identifier
+          x-same-as: 'http://schema.org/identifier'
           format: int64
         customerId:
           type: integer
-          x-same-as: http://schema.org/identifier
+          x-same-as: 'http://schema.org/identifier'
           format: int64
         number:
           type: string
-          x-same-as: http://schema.org/orderNumber
+          x-same-as: 'http://schema.org/orderNumber'
           format: int64
         date:
           type: string
-          x-same-as: http://schema.org/orderDate
+          x-same-as: 'http://schema.org/orderDate'
         status:
           type: string
-          x-same-as: http://schema.org/orderStatus
+          x-same-as: 'http://schema.org/orderStatus'
           example: waiting/processed
         confirmationNumber:
           type: string
-          x-same-as: http://schema.org/confirmationNumber
+          x-same-as: 'http://schema.org/confirmationNumber'
         paymentMethod:
           type: string
-          x-same-as: http://schema.org/paymentMethod
+          x-same-as: 'http://schema.org/paymentMethod'
           example: cash/card
     Car:
       type: object
-      x-same-as: 'http://schema.org/Car'
+      x-same-as: 'http://schema.org/Vehicle'
       properties:
         id:
           type: integer
-          x-same-as: http://schema.org/identifier
+          x-same-as: 'http://schema.org/identifier'
           format: int64
         bodyType:
           type: string
-          x-same-as: http://schema.org/bodyType
+          x-same-as: 'http://schema.org/bodyType'
           example: SUV
         accelerationTime:
           type: number
-          x-same-as: http://schema.org/accelerationTime
+          x-same-as: 'http://schema.org/accelerationTime'
         emissionsCO2:
           type: number
-          x-same-as: http://schema.org/emissionsCO2
+          x-same-as: 'http://schema.org/emissionsCO2'
         speed:
           type: number
-          x-same-as: http://schema.org/speed
+          x-same-as: 'http://schema.org/speed'
         model:
           type: string
-          x-same-as: http://schema.org/model
+          x-same-as: 'http://schema.org/model'
           example: Volkswagen Jetta
+        name:
+          type: string
+          x-same-as: 'http://schema.org/name'
         productionDate:
           type: string
-          x-same-as: http://schema.org/productionDate
+          x-same-as: 'http://schema.org/productionDate'
         fuelCapacity:
           type: number
-          x-same-as: http://schema.org/fuelCapacity
+          x-same-as: 'http://schema.org/fuelCapacity'
         engine:
           type: string
-          x-same-as: http://schema.org/vehicleEngine
+          x-same-as: 'http://schema.org/vehicleEngine'
         price:
           type: number
-          x-same-as: http://schema.org/price
         weight:
           type: number
-          x-same-as: http://schema.org/weightTotal
+          x-same-as: 'http://schema.org/weightTotal'
         identificationNumber:
           type: string
-          x-same-as: http://schema.org/vehicleIdentificationNumber
+          x-same-as: 'http://schema.org/vehicleIdentificationNumber'
           example: 1HGBH41JXMN109186
         seatingCapacity:
           type: number
-          x-same-as: http://schema.org/seatingCapacity
+          x-same-as: 'http://schema.org/seatingCapacity'
         airbags:
           type: number
-          x-same-as: http://schema.org/numberOfAirbags
+          x-same-as: 'http://schema.org/numberOfAirbags'
         meetsEmissionStandard:
           type: string
-          x-same-as: http://schema.org/meetsEmissionStandard
+          x-same-as: 'http://schema.org/meetsEmissionStandard'
         fuelType:
           type: string
-          x-same-as: http://schema.org/fuelType
+          x-same-as: 'http://schema.org/fuelType'
         fuelConsumption:
           type: number
-          x-same-as: http://schema.org/fuelConsumption
+          x-same-as: 'http://schema.org/fuelConsumption'
     TaxiService:
       type: object
       x-same-as: 'http://schema.org/TaxiService'
       properties:
         id:
           type: integer
-          x-same-as: http://schema.org/identifier
+          x-same-as: 'http://schema.org/identifier'
           format: int64
-        provider: 
+        provider:
           type: string
-          x-same-as: http://schema.org/provider
+          x-same-as: 'http://schema.org/provider'
         rating:
           type: number
-          x-same-as: http://schema.org/aggregateRating
         reviews:
           type: array
           items:
@@ -525,32 +530,31 @@ components:
             $ref: '#/components/schemas/Order'
         termsOfService:
           type: string
-          x-same-as: http://schema.org/termsOfService
+          x-same-as: 'http://schema.org/termsOfService'
         costPerKm:
           type: number
         hoursAvailable:
           type: string
-          x-same-as: http://schema.org/hoursAvailable
+          x-same-as: 'http://schema.org/hoursAvailable'
         phoneNumber:
           type: string
-          x-same-as: http://schema.org/telephone
     Customer:
       type: object
       x-same-as: 'http://schema.org/Person'
       properties:
         id:
           type: integer
-          x-same-as: http://schema.org/identifier
+          x-same-as: 'http://schema.org/identifier'
           format: int64
         firstName:
           type: string
-          x-same-as: http://schema.org/name
+          x-same-as: name
         lastName:
           type: string
-          x-same-as: http://schema.org/name
+          x-same-as: 'http://schema.org/name'
         address:
           type: string
-          x-same-as: http://schema.org/address
+          x-same-as: 'http://schema.org/address'
 externalDocs:
   description: Find out more about Swagger
   url: 'http://swagger.io'
