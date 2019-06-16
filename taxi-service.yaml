@@ -513,7 +513,7 @@ components:
           format: int64
         provider:
           type: string
-          x-same-as: 'http://schema.org/provider'
+          x-rdf-type: 'http://schema.org/provider'
         rating:
           type: number
         reviews:
@@ -540,7 +540,7 @@ components:
           type: string
     Customer:
       type: object
-      x-same-as: 'http://schema.org/Person'
+      x-rdf-type: 'http://schema.org/Person'
       properties:
         id:
           type: integer
